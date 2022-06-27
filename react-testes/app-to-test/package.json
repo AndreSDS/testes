@@ -1,0 +1,30 @@
+{
+  "name": "app-to-test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "next": "12.1.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "babel-jest": "^28.1.1",
+    "eslint": "8.18.0",
+    "eslint-config-next": "12.1.6",
+    "jest": "^28.1.1",
+    "jest-css-modules": "^2.1.0",
+    "jest-environment-jsdom": "^28.1.1"
+  }
+}
