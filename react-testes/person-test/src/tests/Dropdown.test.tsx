@@ -9,49 +9,56 @@ const setup = {
   onSelect: jest.fn(),
 };
 
+const getButton = () => screen.getByRole("button", { name: setup.title });
+const getMenuItem = (option: number) =>
+  screen.getByRole("menuitem", { name: setup.options[option] });
+const getMenu = () => {
+  return screen.queryByRole("menu");
+};
+
 describe("Dropdown", () => {
   beforeEach(() => {
     render(<Dropdown {...setup} />);
   });
 
   it("should start closed", () => {
-    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    const menu = getMenu();
+    expect(menu).not.toBeInTheDocument();
   });
 
   it("should show options when opened", async () => {
-    const button = screen.getByRole("button", { name: setup.title });
+    const button = getButton();
+    const menu = getMenu();
     const user = userEvent.setup();
 
-    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    expect(menu).not.toBeInTheDocument();
 
     await user.click(button);
 
-    expect(
-      screen.getByRole("menuitem", { name: setup.options[0] })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("menuitem", { name: setup.options[1] })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("menuitem", { name: setup.options[2] })
-    ).toBeInTheDocument();
+    const menuItemFirst = getMenuItem(0);
+    const menuItemSecond = getMenuItem(1);
+    const menuItemThird = getMenuItem(2);
+
+    expect(menuItemFirst).toBeInTheDocument();
+    expect(menuItemSecond).toBeInTheDocument();
+    expect(menuItemThird).toBeInTheDocument();
   });
 
   it("should close dropdown when an option was selected", async () => {
     const user = userEvent.setup();
-    
-    const button = screen.getByRole("button", { name: setup.title });
 
+    const button = getButton();
+    
     await user.click(button);
     
-    expect(screen.queryByRole("menu")).toBeInTheDocument();
+    const menu = getMenu();
+    expect(menu).toBeInTheDocument();
 
-    const menuItem = screen.getByRole("menuitem", { name: setup.options[0] });
+    const menuItemFirst = getMenuItem(0);
 
-    await user.click(menuItem);
-    
+    await user.click(menuItemFirst);
+
     expect(setup.onSelect).toHaveBeenCalledWith(setup.options[0]);
-    expect(screen.queryByRole("menu")).not.toBeInTheDocument();
+    expect(menu).not.toBeInTheDocument();
   });
-
 });
