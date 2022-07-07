@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+
 import { StatusBar } from 'expo-status-bar'
-import { SplashScreen } from './src/screen/SplashScreen'
 import * as SplashScreenComponent from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import {
@@ -10,6 +10,7 @@ import {
   SourceSansPro_900Black,
 } from '@expo-google-fonts/source-sans-pro'
 import { CustomTheme } from './src/components/CustomTheme'
+import { Routes } from './src/routes'
 
 export default function App() {
   const customFonts = {
@@ -22,7 +23,7 @@ export default function App() {
   const [fontsLoaded, setFonLoaded] = useState(false)
 
   useEffect(() => {
-    ;(async () => {
+    async function prepare() {
       try {
         await SplashScreenComponent.preventAutoHideAsync()
         await Font.loadAsync(customFonts)
@@ -34,7 +35,8 @@ export default function App() {
           await SplashScreenComponent.hideAsync()
         }
       }
-    })()
+    }
+    prepare()
   }, [])
 
   if (!fontsLoaded) {
@@ -44,8 +46,9 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
+
       <CustomTheme>
-        <SplashScreen />
+        <Routes />
       </CustomTheme>
     </>
   )

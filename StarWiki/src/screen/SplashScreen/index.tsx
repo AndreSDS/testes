@@ -1,13 +1,17 @@
-import { CustomText, Logo } from '../../components'
-import { theme } from '../../styles'
+import React, { useEffect } from 'react'
+import { CustomText, Logo, Container } from '../../components'
 
-import { Container } from './styles'
+export const SplashScreen = ({ navigation }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate('Home')
+    }, 2000)
+  }, [navigation])
 
-export const SplashScreen = () => {
   return (
-    <Container>
-      <Logo />
-      <CustomText>StarWars - Wiki</CustomText>
+    <Container align="center" justify="center">
+      <Logo size="large" />
+      <CustomText fontFamily="bold">StarWars - Wiki</CustomText>
     </Container>
   )
 }
