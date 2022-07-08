@@ -18,7 +18,7 @@ export const HeroGradient = styled(LinearGradient)`
   width: 100%;
   height: 100%;
   padding: 0 ${({ theme }) => theme.metrics.px(24)}px;
-  padding-top: ${({ theme }) => theme.metrics.px(56)}px;
+  padding-top: ${({ theme }) => theme.metrics.px(28)}px;
 `
 
 export const HeroHeadertContainer = styled.View`

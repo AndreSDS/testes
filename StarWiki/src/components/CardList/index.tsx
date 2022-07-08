@@ -1,49 +1,33 @@
 import React from 'react'
 import { FlatList } from 'react-native'
-import { Card, CustomText } from '..'
+import { theme } from '~/styles'
+import { Card } from '../Card'
+import { CustomText } from '../Text'
 
-const data = [
-  {
-    id: 1,
-    image_Url:
-      'https://i1.wp.com/www.hollywoodreporter.com/wp-content/uploads/2022/06/jtf-ff-002507_0bfed42dxx-H-2022.jpg?resize=780&w=780',
-  },
-  {
-    id: 2,
-    image_Url:
-      'https://i1.wp.com/www.hollywoodreporter.com/wp-content/uploads/2022/06/jtf-ff-002507_0bfed42dxx-H-2022.jpg?resize=780&w=780',
-  },
-  {
-    id: 3,
-    image_Url:
-      'https://i1.wp.com/www.hollywoodreporter.com/wp-content/uploads/2022/06/jtf-ff-002507_0bfed42dxx-H-2022.jpg?resize=780&w=780',
-  },
-  {
-    id: 4,
-    image_Url:
-      'https://i1.wp.com/www.hollywoodreporter.com/wp-content/uploads/2022/06/jtf-ff-002507_0bfed42dxx-H-2022.jpg?resize=780&w=780',
-  },
-  {
-    id: 5,
-    image_Url:
-      'https://i1.wp.com/www.hollywoodreporter.com/wp-content/uploads/2022/06/jtf-ff-002507_0bfed42dxx-H-2022.jpg?resize=780&w=780',
-  },
-]
+import { CardListContainer } from './styles'
 
 interface CardListProps {
   title: string
+  data: any
 }
 
-export const CardList = ({ title }: CardListProps) => {
+export const CardList = ({ title, data }: CardListProps) => {
   return (
-    <>
-      <CustomText>{title}</CustomText>
+    <CardListContainer>
+      <CustomText ml={24} fontFamily="black" size={18}>
+        {title}
+      </CustomText>
       <FlatList
+        horizontal
         data={data}
         renderItem={({ item }) => <Card item={item} />}
         keyExtractor={(item) => item.id.toString()}
-        horizontal
+        contentContainerStyle={{
+          paddingLeft: theme.metrics.px(24),
+          paddingTop: theme.metrics.px(12),
+          paddingBottom: theme.metrics.px(24),
+        }}
       />
-    </>
+    </CardListContainer>
   )
 }

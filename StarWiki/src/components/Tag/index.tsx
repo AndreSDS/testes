@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { CustomText } from '..'
+import { CustomText } from '../Text'
 import { TagContainer } from './styles'
 
 interface TagProps {
