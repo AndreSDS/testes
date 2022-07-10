@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { CustomText } from '../Text'
-import { Logo } from '../Logo'
 import { IconButton } from '../IconButton'
+import { Logo } from '../Logo'
 import { Tag } from '../Tag'
 import { colors } from '~/styles/colors'
 import {
@@ -13,25 +14,58 @@ import {
   ButtonView,
 } from './styles'
 import { PlayButton } from '../PlayButton'
+import { useFavorites } from '~/hooks'
 
 interface HeroProps {
   onDetail?: boolean
   item: {
-    title: string
+    description: string
+    id: number
+    image_url: string
     subtitle: string
-    image_Url: string
-    type: string
+    title: string
+    trailer_url?: string
   }
 }
 
 export const Hero = ({ item, onDetail }: HeroProps) => {
-  const { title, subtitle, image_Url, type } = item
+  const { goBack } = useNavigation()
+  const [loading, setLoading] = useState(true)
+  const [isFavorite, setIsFavorite] = useState(false)
+  const { addFavorite, getFavorites, removeFavorite } = useFavorites()
+  const { image_url, subtitle, title, trailer_url } = item
+  const type = trailer_url ? 'Filme' : 'Personagem'
+
+  const checkIsFavorite = async () => {
+    const favorites = await getFavorites()
+    const isInFavorites = favorites.some(
+      (favorite) => favorite.id === item.id && favorite.title === item.title
+    )
+
+    setIsFavorite(isInFavorites)
+    setLoading(false)
+  }
+
+  async function addDataToFavorites() {
+    await addFavorite(item)
+    checkIsFavorite()
+  }
+
+  async function removeDataFromFavorites() {
+    await removeFavorite(item)
+    checkIsFavorite()
+  }
+
+  useEffect(() => {
+    checkIsFavorite()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <HeroContainer>
       <HeroImageBackground
         source={{
-          uri: image_Url,
+          uri: image_url,
         }}
       >
         <HeroGradient colors={[colors.dark, 'transparent', colors.dark]}>
@@ -46,12 +80,18 @@ export const Hero = ({ item, onDetail }: HeroProps) => {
               <CustomText size={18}>{subtitle}</CustomText>
               <ButtonView>
                 <IconButton
-                  label="Favoritos"
-                  iconName="add-circle-outline"
-                  onPress={() => {}}
+                  label={isFavorite ? 'Remove' : 'Add to favorites'}
+                  iconName={
+                    isFavorite ? 'remove-circle-outline' : 'add-circle-outline'
+                  }
+                  onPress={() =>
+                    isFavorite
+                      ? removeDataFromFavorites()
+                      : addDataToFavorites()
+                  }
                 />
 
-                {type === 'filme' && <PlayButton onPress={() => {}} />}
+                {type === 'Filme' && <PlayButton onPress={() => {}} />}
 
                 {!onDetail && (
                   <IconButton

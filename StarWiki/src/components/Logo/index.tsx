@@ -1,5 +1,5 @@
 import React from 'react'
-import logoImage from '../../assets/LogoEmpire.png'
+import logoImage from '~/assets/LogoEmpire.png'
 
 import { LogoImage } from './styles'
 

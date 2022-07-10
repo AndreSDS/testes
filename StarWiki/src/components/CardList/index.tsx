@@ -6,17 +6,28 @@ import { CustomText } from '../Text'
 
 import { CardListContainer } from './styles'
 
+interface IData {
+  description: string
+  id: number
+  image_url: string
+  subtitle: string
+  title: string
+  trailer_url?: string
+}
+
 interface CardListProps {
   title: string
-  data: any
+  data: IData[]
 }
 
 export const CardList = ({ title, data }: CardListProps) => {
   return (
     <CardListContainer>
-      <CustomText ml={24} fontFamily="black" size={18}>
-        {title}
-      </CustomText>
+      {title && (
+        <CustomText ml={24} fontFamily="black" size={18}>
+          {title}
+        </CustomText>
+      )}
       <FlatList
         horizontal
         data={data}

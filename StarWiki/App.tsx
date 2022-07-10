@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as SplashScreenComponent from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import {
@@ -10,7 +11,7 @@ import {
   SourceSansPro_900Black,
 } from '@expo-google-fonts/source-sans-pro'
 import { CustomTheme } from './src/components/CustomTheme'
-import { Routes } from './src/routes'
+import { StackRoutes } from './src/routes'
 
 export default function App() {
   const customFonts = {
@@ -37,6 +38,7 @@ export default function App() {
       }
     }
     prepare()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!fontsLoaded) {
@@ -48,7 +50,7 @@ export default function App() {
       <StatusBar style="auto" />
 
       <CustomTheme>
-        <Routes />
+        <StackRoutes />
       </CustomTheme>
     </>
   )

@@ -1,14 +1,16 @@
 import React from 'react'
 import { CardContainer, CardImage } from './styles'
 import { useNavigation } from '@react-navigation/native'
-import { useDataStore } from '~/stores/DataStore'
+import { useDataStore } from '~/stores'
 
 interface CardProps {
   item: {
-    title: string
+    description: string
+    id: number
+    image_url: string
     subtitle: string
-    image_Url: string
-    type: string
+    title: string
+    trailer_url?: string
   }
 }
 
@@ -23,7 +25,7 @@ export const Card = ({ item }: CardProps) => {
 
   return (
     <CardContainer onPress={handleNavigate}>
-      <CardImage source={{ uri: item.image_Url }} />
+      <CardImage source={{ uri: item.image_url }} />
     </CardContainer>
   )
 }
