@@ -8,5 +8,5 @@ interface LogoProps {
 }
 
 export const Logo = ({ size }: LogoProps) => {
-  return <LogoImage size={size} source={logoImage} />
+  return <LogoImage testID="logo-image" size={size} source={logoImage} />
 }

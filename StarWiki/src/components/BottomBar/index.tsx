@@ -12,7 +12,7 @@ const routeIcons = {
 }
 
 const {
-  colors: { light, red },
+  colors,
   metrics: { px },
 } = theme
 
@@ -67,12 +67,12 @@ export const BottomBar = ({
             <Ionicons
               name={routeIcons[route.name]}
               size={px(20)}
-              color={isFocused ? red : light}
+              color={isFocused ? colors.red : colors.light}
             />
             <CustomText
               fontFamily="semiBold"
               size={10}
-              color={isFocused ? 'red' : 'light'}
+              color={isFocused ? colors.red : colors.light}
             >
               {label}
             </CustomText>

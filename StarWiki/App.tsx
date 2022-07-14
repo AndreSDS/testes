@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 import { StatusBar } from 'expo-status-bar'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import * as SplashScreenComponent from 'expo-splash-screen'
 import * as Font from 'expo-font'
 import {

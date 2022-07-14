@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 import { CustomText } from '../Text'
 import { IconButton } from '../IconButton'
 import { Logo } from '../Logo'
@@ -29,9 +28,8 @@ interface HeroProps {
 }
 
 export const Hero = ({ item, onDetail }: HeroProps) => {
-  const { goBack } = useNavigation()
-  const [loading, setLoading] = useState(true)
   const [isFavorite, setIsFavorite] = useState(false)
+
   const { addFavorite, getFavorites, removeFavorite } = useFavorites()
   const { image_url, subtitle, title, trailer_url } = item
   const type = trailer_url ? 'Filme' : 'Personagem'
@@ -43,7 +41,6 @@ export const Hero = ({ item, onDetail }: HeroProps) => {
     )
 
     setIsFavorite(isInFavorites)
-    setLoading(false)
   }
 
   async function addDataToFavorites() {
@@ -64,6 +61,7 @@ export const Hero = ({ item, onDetail }: HeroProps) => {
   return (
     <HeroContainer>
       <HeroImageBackground
+        accessibilityRole="image"
         source={{
           uri: image_url,
         }}
@@ -74,10 +72,13 @@ export const Hero = ({ item, onDetail }: HeroProps) => {
 
             <TitleContainer>
               <Tag>{type}</Tag>
+
               <CustomText fontFamily="bold" size={28} mt={8}>
                 {title}
               </CustomText>
+
               <CustomText size={18}>{subtitle}</CustomText>
+
               <ButtonView>
                 <IconButton
                   label={isFavorite ? 'Remove' : 'Add to favorites'}

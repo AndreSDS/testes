@@ -12,7 +12,7 @@ interface IconButtonProps {
 
 export const IconButton = ({ iconName, label, onPress }: IconButtonProps) => {
   return (
-    <IconButtonContainer onPress={onPress}>
+    <IconButtonContainer testID={label} onPress={onPress}>
       <Ionicons
         name={iconName}
         size={theme.metrics.px(24)}
