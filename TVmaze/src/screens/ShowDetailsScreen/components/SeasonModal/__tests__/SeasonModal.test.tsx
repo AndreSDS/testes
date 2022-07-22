@@ -1,7 +1,7 @@
 import React, {createRef} from 'react';
 import {render, act, fireEvent} from '@testing-library/react-native';
 import {Modalize} from 'react-native-modalize';
-import {SeasonModal} from './SeasonModal';
+import {SeasonModal} from '../SeasonModal';
 
 describe('SeasonModal', () => {
   const setup = {
