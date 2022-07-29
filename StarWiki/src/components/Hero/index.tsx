@@ -29,12 +29,12 @@ interface HeroProps {
 
 export const Hero = ({ item, onDetail }: HeroProps) => {
   const [isFavorite, setIsFavorite] = useState(false)
-
   const { addFavorite, getFavorites, removeFavorite } = useFavorites()
   const { image_url, subtitle, title, trailer_url } = item
   const type = trailer_url ? 'Filme' : 'Personagem'
 
-  const checkIsFavorite = async () => {
+  async function checkIsFavorite() {
+    console.log('checkIsFavorite')
     const favorites = await getFavorites()
     const isInFavorites = favorites.some(
       (favorite) => favorite.id === item.id && favorite.title === item.title

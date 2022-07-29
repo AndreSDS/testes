@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import mockAsyncStorage from '@react-native-async-storage/async-storage/jest/async-storage-mock'
 import {
   render,
@@ -15,6 +15,8 @@ import { useFavorites } from '../../../src/hooks'
 
 jest.mock('@react-native-async-storage/async-storage', () => mockAsyncStorage)
 
+const mockUseState = useState as jest.Mock
+
 const setup = {
   favorites: [
     {
@@ -26,9 +28,6 @@ const setup = {
       trailer_url: 'https://www.youtube.com/watch?v=',
     },
   ],
-  addToFavorites: jest.fn(
-    () => new Promise((resolve) => resolve(setup.favorites[0]))
-  ),
   onDetail: false,
   item: {
     description: '',
@@ -91,8 +90,11 @@ describe('Hero component', () => {
   it('should be change the button label after press it', async () => {
     const addButton = screen.getByTestId('Add to favorites')
 
-    act(() => {
+    await act(async () => {
       fireEvent.press(addButton)
+      await result.current.addFavorite(setup.item).then(() => {
+        mockUseState.mockImplementationOnce(() => [true, jest.fn()])
+      })
     })
 
     const removeButton = screen.getByTestId('Remove')
